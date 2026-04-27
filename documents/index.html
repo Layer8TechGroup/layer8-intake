@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Submission Guide — Layer8 Exit Readiness Assessment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:         #1E2761;
+      --teal:         #028090;
+      --teal-light:   #03a0b0;
+      --gold:         #C9A84C;
+      --off-white:    #F7F6F2;
+      --mid-gray:     #6B7280;
+      --light-border: #E5E7EB;
+
+      /* Domain accent colors */
+      --c-diligence:   #1E2761;
+      --c-owner:       #7C3AED;
+      --c-customer:    #0369A1;
+      --c-ops:         #047857;
+      --c-financial:   #B45309;
+      --c-legal:       #9D174D;
+      --c-tech:        #0E7490;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: #1F2937;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--navy);
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .site-header .brand {
+      color: white;
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .site-header .brand span { color: var(--teal-light); }
+    .back-link {
+      color: rgba(255,255,255,0.75);
+      font-size: 13px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .15s;
+    }
+    .back-link:hover { color: white; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #2a3580 60%, #1a5f6e 100%);
+      padding: 64px 40px 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(2,128,144,0.15);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -40px;
+      width: 250px; height: 250px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.08);
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(2,128,144,0.25);
+      border: 1px solid rgba(2,128,144,0.5);
+      color: var(--teal-light);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 4vw, 44px);
+      color: white;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero p {
+      max-width: 640px;
+      margin: 0 auto 28px;
+      color: rgba(255,255,255,0.8);
+      font-size: 16px;
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Track badges in hero */
+    .track-badges {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .track-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      padding: 14px 20px;
+      min-width: 170px;
+    }
+    .track-badge .track-name {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .track-badge .track-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.4;
+      text-align: center;
+    }
+    .track-badge.min  { border-color: rgba(107,114,128,0.5); }
+    .track-badge.min  .track-name { color: #D1D5DB; }
+    .track-badge.std  { border-color: rgba(3,160,176,0.6); }
+    .track-badge.std  .track-name { color: var(--teal-light); }
+    .track-badge.comp { border-color: rgba(201,168,76,0.6); }
+    .track-badge.comp .track-name { color: var(--gold); }
+
+    /* ── SHARED SECTION STYLES ── */
+    .content-section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 56px 40px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .section-intro {
+      font-size: 15px;
+      color: var(--mid-gray);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 680px;
+    }
+
+    /* ── DOMAIN CARDS ── */
+    .domain-cards { display: flex; flex-direction: column; gap: 20px; }
+
+    .domain-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--light-border);
+    }
+    .domain-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 24px;
+      border-left: 5px solid var(--c-diligence);
+    }
+    .domain-card-header .domain-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .domain-card-header h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 2px;
+    }
+    .domain-card-header .domain-why {
+      font-size: 12px;
+      color: var(--mid-gray);
+      line-height: 1.5;
+    }
+    .domain-card-body { padding: 0 24px 20px; }
+
+    /* Document table */
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+    .doc-table thead th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--light-border);
+    }
+    .doc-table tbody td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #F3F4F6;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .doc-table tbody tr:last-child td { border-bottom: none; }
+    .doc-table tbody tr:nth-child(even) td { background: #FAFAFA; }
+
+    /* Track pill badges */
+    .track-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .tp-min  { background: #F3F4F6; color: #6B7280; }
+    .tp-std  { background: #ECFEFF; color: var(--teal); }
+    .tp-comp { background: #FFFBEB; color: #92400E; }
+    .doc-note { font-size: 12px; color: var(--mid-gray); }
+
+    /* Color overrides per domain */
+    .dc-diligence  { border-left-color: var(--c-diligence) !important; }
+    .dc-owner      { border-left-color: var(--c-owner) !important; }
+    .dc-customer   { border-left-color: var(--c-customer) !important; }
+    .dc-ops        { border-left-color: var(--c-ops) !important; }
+    .dc-financial  { border-left-color: var(--c-financial) !important; }
+    .dc-legal      { border-left-color: var(--c-legal) !important; }
+    .dc-tech       { border-left-color: var(--c-tech) !important; }
+
+    .bg-diligence  { background: #EFF2FF; color: var(--c-diligence); }
+    .bg-owner      { background: #F5F3FF; color: var(--c-owner); }
+    .bg-customer   { background: #EFF6FF; color: var(--c-customer); }
+    .bg-ops        { background: #ECFDF5; color: var(--c-ops); }
+    .bg-financial  { background: #FFFBEB; color: var(--c-financial); }
+    .bg-legal      { background: #FFF1F5; color: var(--c-legal); }
+    .bg-tech       { background: #ECFEFF; color: var(--c-tech); }
+
+    /* ── VERTICAL SECTION ── */
+    .vertical-section { background: white; border-top: 1px solid var(--light-border); }
+
+    .vertical-cards { display: flex; flex-direction: column; gap: 10px; }
+
+    details.vert-card {
+      border: 1px solid var(--light-border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: white;
+    }
+    details.vert-card[open] { border-color: var(--teal-light); }
+
+    details.vert-card summary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--navy);
+    }
+    details.vert-card summary::-webkit-details-marker { display: none; }
+    details.vert-card summary::after {
+      content: '﹢';
+      margin-left: auto;
+      font-size: 18px;
+      color: var(--teal);
+      font-weight: 300;
+      line-height: 1;
+    }
+    details.vert-card[open] summary::after { content: '－'; }
+
+    .vert-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .vert-body { padding: 0 20px 20px; }
+    .vert-body ul {
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .vert-body li { font-size: 13px; color: #374151; line-height: 1.5; }
+    .vert-body li strong { color: var(--navy); font-weight: 600; }
+
+    /* ── HOW TO SUBMIT ── */
+    .submit-section { background: white; border-top: 1px solid var(--light-border); }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .step-card {
+      background: var(--off-white);
+      border-radius: 12px;
+      padding: 28px 22px;
+      text-align: center;
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: white;
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+    .step-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .step-card p { font-size: 13px; color: var(--mid-gray); line-height: 1.6; }
+    .step-card .btn-teal {
+      display: inline-block;
+      margin-top: 14px;
+      background: var(--teal);
+      color: white;
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .step-card .btn-teal:hover { background: var(--teal-light); }
+
+    .confidence-callout {
+      background: #F0FDFA;
+      border: 1px solid #99F6E4;
+      border-radius: 10px;
+      padding: 18px 22px;
+      font-size: 13px;
+      color: #065F46;
+      line-height: 1.7;
+    }
+    .confidence-callout strong { color: var(--teal); }
+
+    /* ── PRIVACY SECTION ── */
+    .privacy-section {
+      background: #111827;
+      padding: 48px 40px;
+      text-align: center;
+    }
+    .privacy-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: white;
+      margin-bottom: 14px;
+    }
+    .privacy-section p {
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 14px;
+      color: #9CA3AF;
+      line-height: 1.8;
+    }
+    .privacy-section .lock-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: #111827;
+      padding: 20px 40px;
+      text-align: center;
+      font-size: 12px;
+      color: #6B7280;
+      border-top: 1px solid #1F2937;
+    }
+    .site-footer a { color: var(--teal-light); text-decoration: none; }
+
+    /* ── BACK LINK AT BOTTOM ── */
+    .back-bottom {
+      text-align: center;
+      padding: 24px;
+      background: var(--off-white);
+      border-top: 1px solid var(--light-border);
+    }
+    .back-bottom a {
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .back-bottom a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .site-header { padding: 16px 20px; }
+      .hero { padding: 48px 20px 56px; }
+      .content-section { padding: 40px 20px; }
+      .track-badge { min-width: 140px; }
+      .privacy-section { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="https://www.layer8techgroup.com" class="brand">Layer<span>8</span> Tech Group</a>
+  <a href="/exit-readiness/" class="back-link">&#8592; Back to Intake</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Exit Readiness Assessment</div>
+  <h1>Document Submission Guide</h1>
+  <p>What to gather for your Exit Readiness Assessment</p>
+  <p style="font-size:14px;">The Layer8 Exit Readiness Assessment can begin with intake data alone — no documents required to start. Providing supporting documents improves scoring confidence and produces more specific findings. This guide shows what documents support each assessment domain and how to prioritize your preparation time.</p>
+
+  <div class="track-badges">
+    <div class="track-badge min">
+      <span class="track-name">Minimum</span>
+      <span class="track-desc">Intake form only —<br>assessment starts immediately</span>
+    </div>
+    <div class="track-badge std">
+      <span class="track-name">Standard</span>
+      <span class="track-desc">Key documents —<br>recommended for most clients</span>
+    </div>
+    <div class="track-badge comp">
+      <span class="track-name">Comprehensive</span>
+      <span class="track-desc">Full data room —<br>highest confidence scoring</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 1: Domain Document Requirements -->
+<div style="background:white; border-bottom:1px solid var(--light-border);">
+<div class="content-section">
+  <div class="section-label">Section 1</div>
+  <h2 class="section-title">Domain Document Requirements</h2>
+  <p class="section-intro">Each of the seven scored domains has specific documentation that improves scoring accuracy. Documents marked <strong>Standard</strong> are recommended for most clients. <strong>Comprehensive</strong> documents are for clients targeting highest-confidence scoring or preparing for institutional buyers.</p>
+
+  <div class="domain-cards">
+
+    <!-- DILIGENCE RISK -->
+    <div class="domain-card">
+      <div class="domain-card-header dc-diligence">
+        <div class="domain-icon bg-diligence">🛡</div>
+        <div>
+          <h3>Diligence Risk</h3>
+          <p class="domain-why">Document quality directly determines scoring confidence across SOPs, cybersecurity posture, and data room readiness.</p>
+        </div>
+      </div>
+      <div class="domain-card-body">
+        <table class="doc-table">
+          <thead><tr><th style="width:40%;">Document Type</th><th style="width:18%;">Track</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Standard Operating Procedures / process documentation</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Any format — Word, PDF, Notion export</td></tr>
+            <tr><td>IT asset inventory</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Spreadsheet acceptable</td></tr>
+            <tr><td>Cybersecurity policy documentation</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Including MFA and endpoint protection evidence</td></tr>
+            <tr><td>Cyber insurance certificate</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Current policy declaration page</td></tr>
+            <tr><td>Data room index (if exists)</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">Shows existing organization level</td></tr>
+            <tr><td>Network diagram</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">Or equivalent infrastructure documentation</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- OWNER RISK -->
+    <div class="domain-card">
+      <div class="domain-card-header dc-owner">
+        <div class="domain-icon bg-owner">👤</div>
+        <div>
+          <h3>Owner Risk</h3>
+          <p class="domain-why">Succession readiness and knowledge capture are scored from documentation — verbal descriptions score at lower confidence.</p>
+        </div>
+      </div>
+      <div class="domain-card-body">
+        <table class="doc-table">
+          <thead><tr><th style="width:40%;">Document Type</th><th style="width:18%;">Track</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Org chart</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Shows management depth below owner</td></tr>
+            <tr><td>Succession plan (if exists)</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Any format</td></tr>
+            <tr><td>Key employee retention agreements</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Signed copies</td></tr>
+            <tr><td>Delegation of authority documentation</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">Who can approve what in owner's absence</td></tr>
+            <tr><td>Employee handbook</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">Signals institutional documentation maturity</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CUSTOMER QUALITY -->
+    <div class="domain-card">
+      <div class="domain-card-header dc-customer">
+        <div class="domain-icon bg-customer">🤝</div>
+        <div>
+          <h3>Customer Quality</h3>
+          <p class="domain-why">Contract transferability and churn metrics require documentation — estimated figures score at lower confidence.</p>
+        </div>
+      </div>
+      <div class="domain-card-body">
+        <table class="doc-table">
+          <thead><tr><th style="width:40%;">Document Type</th><th style="width:18%;">Track</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Top 10 customer list with revenue %</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Anonymized acceptable at intake</td></tr>
+            <tr><td>Sample customer contract</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Shows assignment language presence/absence</td></tr>
+            <tr><td>Customer renewal rate data</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Last 2–3 years, any format</td></tr>
+            <tr><td>Full contract repository index</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">Count and format of all agreements</td></tr>
+            <tr><td>Churn/retention tracking report</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">From CRM or billing system</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- OPERATIONAL SCALABILITY -->
+    <div class="domain-card">
+      <div class="domain-card-header dc-ops">
+        <div class="domain-icon bg-ops">⚙</div>
+        <div>
+          <h3>Operational Scalability</h3>
+          <p class="domain-why">Process documentation and systems maturity are the primary scoring inputs for this domain.</p>
+        </div>
+      </div>
+      <div class="domain-card-body">
+        <table class="doc-table">
+          <thead><tr><th style="width:40%;">Document Type</th><th style="width:18%;">Track</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Core process documentation / SOPs</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Any documented workflows</td></tr>
+            <tr><td>Technology stack list</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Core systems in use</td></tr>
+            <tr><td>Vendor contract summary</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Key vendors, renewal dates</td></tr>
+            <tr><td>Financial controls documentation</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">Month-end close process</td></tr>
+            <tr><td>DR/backup testing records</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">Most recent test results</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FINANCIAL READINESS -->
+    <div class="domain-card">
+      <div class="domain-card-header dc-financial">
+        <div class="domain-icon bg-financial">📊</div>
+        <div>
+          <h3>Financial Readiness</h3>
+          <p class="domain-why">Financial statement quality and add-back documentation are the primary inputs — estimated figures score at lower confidence.</p>
+        </div>
+      </div>
+      <div class="domain-card-body">
+        <table class="doc-table">
+          <thead><tr><th style="width:40%;">Document Type</th><th style="width:18%;">Track</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>3 years P&amp;L statements</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">CPA-prepared preferred</td></tr>
+            <tr><td>Most recent balance sheet</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note"></td></tr>
+            <tr><td>Owner add-back schedule (if prepared)</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Even an informal list is useful</td></tr>
+            <tr><td>Tax returns (3 years)</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">Corroborates P&amp;L figures</td></tr>
+            <tr><td>Quality of Earnings prep materials</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">If previously prepared</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LEGAL & REGULATORY COMPLIANCE -->
+    <div class="domain-card">
+      <div class="domain-card-header dc-legal">
+        <div class="domain-icon bg-legal">⚖</div>
+        <div>
+          <h3>Legal &amp; Regulatory Compliance</h3>
+          <p class="domain-why">License status, contract terms, and employment compliance require documentation — this domain cannot be accurately scored from verbal descriptions alone.</p>
+        </div>
+      </div>
+      <div class="domain-card-body">
+        <table class="doc-table">
+          <thead><tr><th style="width:40%;">Document Type</th><th style="width:18%;">Track</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Business license(s)</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Current copies</td></tr>
+            <tr><td>Key vendor agreements</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Top 3–5 by spend</td></tr>
+            <tr><td>Employment agreements / non-competes</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">For key employees</td></tr>
+            <tr><td>IP assignment agreements</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Especially for contractor-developed work</td></tr>
+            <tr><td>Litigation disclosure</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Any open or recent matters</td></tr>
+            <tr><td>Full contract repository</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">All customer, vendor, and lease agreements</td></tr>
+            <tr><td>I-9 documentation confirmation</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">Confirmation of compliance, not copies</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TECHNOLOGY & SYSTEMS MATURITY -->
+    <div class="domain-card">
+      <div class="domain-card-header dc-tech">
+        <div class="domain-icon bg-tech">💻</div>
+        <div>
+          <h3>Technology &amp; Systems Maturity</h3>
+          <p class="domain-why">System ownership, security posture, and technical debt assessment require documentation — verbal descriptions of technology produce low-confidence scores.</p>
+        </div>
+      </div>
+      <div class="domain-card-body">
+        <table class="doc-table">
+          <thead><tr><th style="width:40%;">Document Type</th><th style="width:18%;">Track</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Technology vendor / subscription list</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">All tools with login ownership noted</td></tr>
+            <tr><td>Cybersecurity assessment (if exists)</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Any prior assessment or pen test</td></tr>
+            <tr><td>Data backup and recovery documentation</td><td><span class="track-pill tp-std">Standard</span></td><td class="doc-note">Last test date and results</td></tr>
+            <tr><td>System access and credential inventory</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">Who owns what credentials</td></tr>
+            <tr><td>Technical debt log (if exists)</td><td><span class="track-pill tp-comp">Comprehensive</span></td><td class="doc-note">Known deferred upgrades</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /domain-cards -->
+</div>
+</div>
+
+
+<!-- SECTION 2: Vertical-Specific Requirements -->
+<div class="vertical-section">
+<div class="content-section">
+  <div class="section-label">Section 2</div>
+  <h2 class="section-title">Vertical-Specific Requirements</h2>
+  <p class="section-intro">Some industries require additional documentation beyond the standard set. Select your vertical below to see what additional materials support the highest-confidence assessment in your sector.</p>
+
+  <div class="vertical-cards">
+
+    <details class="vert-card">
+      <summary>
+        <span class="vert-badge" style="background:#ECFDF5;color:#059669;">Healthcare</span>
+        Healthcare Practices &amp; Medical Groups
+      </summary>
+      <div class="vert-body">
+        <ul>
+          <li><strong>HIPAA Security Risk Assessment</strong> — most recent completed assessment</li>
+          <li><strong>Provider licenses and DEA registrations</strong> — all providers, current copies</li>
+          <li><strong>Payer contracts</strong> — top 5 by revenue; confirms transferability</li>
+          <li><strong>Credentialing files</strong> — all clinical staff</li>
+          <li><strong>Compliance training completion records</strong> — HIPAA and clinical compliance</li>
+          <li><strong>Malpractice insurance certificates</strong> — all providers, current policy</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="vert-card">
+      <summary>
+        <span class="vert-badge" style="background:#FEF9C3;color:#713F12;">Legal</span>
+        Law Firms &amp; Legal Services Providers
+      </summary>
+      <div class="vert-body">
+        <ul>
+          <li><strong>Bar association standing confirmation</strong> — all attorneys of record</li>
+          <li><strong>Malpractice insurance certificate</strong> — current policy declaration page</li>
+          <li><strong>Client trust account reconciliation</strong> — most recent month</li>
+          <li><strong>Matter management system export</strong> — active matter count and status</li>
+          <li><strong>Conflicts check system documentation</strong> — demonstrates systematic risk management</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="vert-card">
+      <summary>
+        <span class="vert-badge" style="background:#F5F3FF;color:#6D28D9;">Accounting / Financial Services</span>
+        CPA Firms, Bookkeeping &amp; Financial Advisory
+      </summary>
+      <div class="vert-body">
+        <ul>
+          <li><strong>CPA license confirmation</strong> — all licensed CPAs at the firm</li>
+          <li><strong>E&amp;O insurance certificate</strong> — current policy</li>
+          <li><strong>Engagement letter templates</strong> — demonstrates standardization and transferability</li>
+          <li><strong>Client list with service type and recurring fee</strong> — by engagement type</li>
+          <li><strong>Peer review report</strong> — most recent, if applicable</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="vert-card">
+      <summary>
+        <span class="vert-badge" style="background:#EFF6FF;color:#1D4ED8;">Insurance</span>
+        Insurance Agencies &amp; Brokerages
+      </summary>
+      <div class="vert-body">
+        <ul>
+          <li><strong>Producer license documentation</strong> — all licensed staff, current state</li>
+          <li><strong>E&amp;O insurance certificate</strong> — current policy declaration page</li>
+          <li><strong>Book of business summary</strong> — by line of business and carrier</li>
+          <li><strong>Commission statement</strong> — most recent 12 months</li>
+          <li><strong>Carrier appointment letters</strong> — all active carrier appointments</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="vert-card">
+      <summary>
+        <span class="vert-badge" style="background:#ECFEFF;color:#0E7490;">Technology / MSP</span>
+        Managed Service Providers &amp; IT Services
+      </summary>
+      <div class="vert-body">
+        <ul>
+          <li><strong>PSA/RMM platform export</strong> — active client count and monthly recurring revenue</li>
+          <li><strong>NOC documentation and escalation procedures</strong> — demonstrates systematized delivery</li>
+          <li><strong>Client SLA agreements</strong> — sample showing contract terms and renewal structure</li>
+          <li><strong>Vendor stack list with licensing details</strong> — all tools with contract terms</li>
+          <li><strong>SOC 2 or security certification</strong> — if applicable</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="vert-card">
+      <summary>
+        <span class="vert-badge" style="background:#ECFDF5;color:#15803D;">Real Estate</span>
+        Brokerages &amp; Property Management
+      </summary>
+      <div class="vert-body">
+        <ul>
+          <li><strong>Brokerage license documentation</strong> — entity license, current</li>
+          <li><strong>Agent roster with production by agent</strong> — demonstrates concentration / distribution</li>
+          <li><strong>GCI breakdown by agent</strong> — last 12 months</li>
+          <li><strong>Lead generation source attribution</strong> — owned vs. agent-dependent sources</li>
+          <li><strong>Referral partner list and tracking</strong> — demonstrates systematized pipeline</li>
+        </ul>
+      </div>
+    </details>
+
+  </div><!-- /vertical-cards -->
+</div>
+</div>
+
+
+<!-- SECTION 3: How to Submit -->
+<div class="submit-section">
+<div class="content-section">
+  <div class="section-label">Section 3</div>
+  <h2 class="section-title">How to Submit</h2>
+  <p class="section-intro">A simple three-step process — no document upload required to begin.</p>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h3>Complete the Intake Form</h3>
+      <p>Start at intake.layer8techgroup.com — company basics only, 5 minutes. No documents required to begin.</p>
+      <a href="/exit-readiness/" class="btn-teal">Complete Intake →</a>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h3>Receive Your Secure Upload Link</h3>
+      <p>Within 24 hours of intake submission, Layer8 will send a secure document upload link. You control what you share and when.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h3>Assessment Runs</h3>
+      <p>Once documents are received, your scored report is delivered within 48–72 hours. The more documentation provided, the higher the scoring confidence.</p>
+    </div>
+  </div>
+
+  <div class="confidence-callout">
+    <strong>About confidence levels:</strong> Every criterion in your report includes a confidence rating —
+    <strong>High</strong> (3+ source documents corroborated),
+    <strong>Moderate</strong> (2 documents), or
+    <strong>Low</strong> (intake data only).
+    Low-confidence scores should be reviewed before using in buyer negotiations.
+    Providing supporting documents upgrades confidence ratings and produces more specific, defensible findings.
+  </div>
+</div>
+</div>
+
+
+<!-- SECTION 4: Privacy & Confidentiality -->
+<section class="privacy-section">
+  <div class="lock-icon">🔒</div>
+  <h2>Privacy &amp; Confidentiality</h2>
+  <p>All documents submitted are treated as strictly confidential. Layer8 Tech Group does not share client materials with any third party without written consent. Documents are used solely to conduct the Exit Readiness Assessment and are not retained beyond the engagement without client authorization.</p>
+</section>
+
+<div class="back-bottom">
+  <a href="/exit-readiness/">&#8592; Back to Intake Form</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p>Layer8 Tech Group &nbsp;·&nbsp; Marietta, Georgia &nbsp;·&nbsp; <a href="mailto:info@layer8techgroup.com">info@layer8techgroup.com</a> &nbsp;·&nbsp; 404-642-7589 &nbsp;·&nbsp; <a href="https://demo.layer8techgroup.com">View Demo Portfolio →</a></p>
+</footer>
+
+</body>
+</html>
